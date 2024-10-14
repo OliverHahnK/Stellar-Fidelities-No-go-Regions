@@ -1,0 +1,266 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     10116,        258]
+NotebookOptionsPosition[      9449,        239]
+NotebookOutlinePosition[      9844,        255]
+CellTagsIndexPosition[      9801,        252]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"input", "=", 
+    RowBox[{"{", 
+     RowBox[{
+     "0.381", ",", "0.557", ",", "1", ",", "1", ",", "1", ",", "1", ",", "1", 
+      ",", "1", ",", "1"}], "}"}]}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+   "list", " ", "of", " ", "stellar", " ", "fidelities", " ", "for", " ", 
+    "the", " ", "input", " ", "state"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"target", "=", 
+    RowBox[{"{", 
+     RowBox[{"0.25", ",", "0.478", ",", "1", ",", "1", ",", "1"}], "}"}]}], 
+   ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+   "list", " ", "of", " ", "stellar", " ", "fidelities", " ", "for", " ", 
+    "the", " ", "target", " ", "state"}], "*)"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"copies", "=", "1"}], ";"}], 
+  RowBox[{"(*", 
+   RowBox[{
+   "number", " ", "of", " ", "copies", " ", "of", " ", "the", " ", "input", 
+    " ", "state"}], "*)"}]}]}], "Input",
+ CellChangeTimes->{{3.933844379507909*^9, 3.9338444107166357`*^9}, {
+  3.933844440754385*^9, 3.933844449229231*^9}, {3.9338449024233837`*^9, 
+  3.933844903012348*^9}, {3.9338462614911003`*^9, 3.9338462915376863`*^9}, {
+  3.933846963069927*^9, 3.933846967439097*^9}, {3.933847150817533*^9, 
+  3.933847158463438*^9}, {3.9338482923392467`*^9, 3.933848369489147*^9}, {
+  3.933849063288733*^9, 3.9338490784698133`*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"dabdbbcf-7eda-470c-90ed-012871c3b668"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"nogoregion", "[", 
+   RowBox[{"input_", ",", "target_", ",", "copies_"}], "]"}], ":=", 
+  RowBox[{"RegionUnion", "[", 
+   RowBox[{
+    RowBox[{"RegionUnion", "[", 
+     RowBox[{"Flatten", "[", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"Rectangle", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"n", "*", 
+               RowBox[{"copies", "/", "q"}]}], ",", "0"}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", 
+              RowBox[{"Max", "[", 
+               RowBox[{
+                RowBox[{"1", "-", 
+                 RowBox[{"target", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"q", "+", "1"}], "]"}], "]"}], "-", 
+                 RowBox[{"copies", 
+                  RowBox[{"(", 
+                   RowBox[{"1", "-", 
+                    RowBox[{"input", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"n", "+", "1"}], "]"}], "]"}]}], ")"}]}]}], ",", 
+                "0"}], "]"}]}], "}"}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"q", ",", 
+            RowBox[{"n", "*", "copies"}], ",", 
+            RowBox[{
+             RowBox[{"Length", "[", "target", "]"}], "-", "1"}]}], "}"}]}], 
+         "]"}], ",", 
+        RowBox[{"{", 
+         RowBox[{"n", ",", "1", ",", 
+          RowBox[{
+           RowBox[{"Length", "[", "input", "]"}], "-", "1"}]}], "}"}]}], 
+       "]"}], "]"}], "]"}], ",", 
+    RowBox[{"Rectangle", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"0", ",", "0"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"1", ",", 
+        RowBox[{"Max", "[", 
+         RowBox[{
+          RowBox[{"1", "-", 
+           RowBox[{"target", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "-", 
+           RowBox[{"copies", 
+            RowBox[{"(", 
+             RowBox[{"1", "-", 
+              RowBox[{"input", "[", 
+               RowBox[{"[", "1", "]"}], "]"}]}], ")"}]}]}], ",", "0"}], 
+         "]"}]}], "}"}]}], "]"}]}], "]"}], 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"computes", " ", "the", " ", "no"}], "-", 
+     RowBox[{
+     "go", " ", "region", " ", "for", " ", "Gaussian", " ", "conversion", " ",
+       "by", " ", "treating", " ", "the", " ", "case", " ", "n"}]}], "=", 
+    RowBox[{"0", " ", 
+     RowBox[{"separately", ".", " ", "The"}], " ", "first", " ", "coordinate",
+      " ", "is", " ", "the", " ", "success", " ", "probability", " ", "and", 
+     " ", "the", " ", "second", " ", "coordinate", " ", "is", " ", "the", " ",
+      "error", " ", "in", " ", "trace", " ", "distance"}]}], 
+   "*)"}]}]], "Input",
+ CellChangeTimes->{{3.933844158672058*^9, 3.93384422000526*^9}, {
+   3.933844281504467*^9, 3.93384436951777*^9}, {3.933844604974841*^9, 
+   3.93384461990101*^9}, {3.9338446606985483`*^9, 3.9338446797944937`*^9}, {
+   3.933844720856051*^9, 3.9338447258212*^9}, {3.9338450173531733`*^9, 
+   3.933845024984799*^9}, {3.933845085729246*^9, 3.9338451098794813`*^9}, 
+   3.933845158871749*^9, {3.933845189722006*^9, 3.9338451929491167`*^9}, {
+   3.933845347750594*^9, 3.93384534906046*^9}, {3.933845590002232*^9, 
+   3.933845590108973*^9}, {3.933845701794959*^9, 3.933845702734586*^9}, {
+   3.933845735120686*^9, 3.93384573524004*^9}, {3.933845770017829*^9, 
+   3.933845800234833*^9}, {3.9338458332810087`*^9, 3.933845853990252*^9}, {
+   3.933846876197644*^9, 3.9338468953152323`*^9}, {3.93384693927619*^9, 
+   3.9338469412591867`*^9}, {3.933847089762619*^9, 3.933847089837904*^9}, {
+   3.933847125351068*^9, 3.9338471395130787`*^9}, {3.9338484111486588`*^9, 
+   3.9338484582757587`*^9}, {3.933848497035342*^9, 3.93384850704254*^9}, {
+   3.933848916876917*^9, 3.93384892809424*^9}},
+ CellLabel->"In[4]:=",ExpressionUUID->"faacf065-e2bc-4a70-b266-97b95acca467"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Region", "[", 
+   RowBox[{
+    RowBox[{"nogoregion", "[", 
+     RowBox[{"input", ",", "target", ",", "copies"}], "]"}], ",", 
+    RowBox[{"PlotTheme", "->", "\"\<Detailed\>\""}], ",", 
+    RowBox[{"PlotRange", "->", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1"}], "}"}]}], "}"}]}], ",", 
+    RowBox[{"FrameLabel", "->", 
+     RowBox[{"{", 
+      RowBox[{
+      "\"\<success probability\>\"", ",", "\"\<trace distance error\>\""}], 
+      "}"}]}]}], "]"}], 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"plots", " ", "the", " ", "no"}], "-", 
+    RowBox[{
+    "go", " ", "region", " ", "for", " ", "Gaussian", " ", "conversion"}]}], 
+   "*)"}]}]], "Input",
+ CellChangeTimes->{{3.933845065330611*^9, 3.933845068686974*^9}, {
+  3.93384520843393*^9, 3.9338452147478952`*^9}, {3.933845866430908*^9, 
+  3.933845885578053*^9}, {3.933845956617156*^9, 3.933845989856752*^9}, {
+  3.93384607053771*^9, 3.933846078547359*^9}, {3.933846159224659*^9, 
+  3.933846208120564*^9}, {3.933848465947116*^9, 3.9338486288033743`*^9}, {
+  3.93384871550039*^9, 3.933848736574353*^9}, {3.933848788584734*^9, 
+  3.933848788887788*^9}, {3.9338488560337667`*^9, 3.933848894163816*^9}, {
+  3.9338490738965797`*^9, 3.933849075166669*^9}},
+ CellLabel->"In[5]:=",ExpressionUUID->"16d9621c-e1f9-46a8-803a-2ffb5a27dceb"],
+
+Cell[BoxData[
+ GraphicsBox[
+  TagBox[
+   DynamicModuleBox[{Typeset`region = HoldComplete[
+     Region[
+      BooleanRegion[Or[#, #2, #3, #4, #5, #6, #7, #8]& , {
+        Rectangle[{1, 0}, {1, 0.07900000000000007}], 
+        Rectangle[{
+          Rational[1, 2], 0}, {1, 0}], 
+        Rectangle[{
+          Rational[1, 3], 0}, {1, 0}], 
+        Rectangle[{
+          Rational[1, 4], 0}, {1, 0}], 
+        Rectangle[{1, 0}, {1, 0}], 
+        Rectangle[{
+          Rational[2, 3], 0}, {1, 0}], 
+        Rectangle[{
+          Rational[3, 4], 0}, {1, 0}], 
+        Rectangle[{0, 0}, {1, 0.131}]}], {
+      FrameLabel -> {"success probability", "trace distance error"}, 
+       PlotRange -> {{0, 1}, {0, 1}}, PlotTheme -> "Detailed"}]]}, 
+    TagBox[{{RectangleBox[{1, 0}, {1, 0.07900000000000007}], {}}, {
+       RectangleBox[NCache[{Rational[1, 2], 0}, {0.5, 0}], {1, 0}], {}}, {
+       RectangleBox[
+        NCache[{Rational[1, 3], 0}, {0.3333333333333333, 0}], {1, 0}], {}}, {
+       RectangleBox[NCache[{Rational[1, 4], 0}, {0.25, 0}], {1, 0}], {}}, {
+       RectangleBox[{1, 0}, {1, 0}], {}}, {
+       RectangleBox[
+        NCache[{Rational[2, 3], 0}, {0.6666666666666666, 0}], {1, 0}], {}}, {
+       RectangleBox[NCache[{Rational[3, 4], 0}, {0.75, 0}], {1, 0}], {}}, {
+       RectangleBox[{0, 0}, {1, 0.131}], {}}},
+     MouseAppearanceTag["LinkHand"]],
+    AllowKernelInitialization->False],
+   "RegionGraphics",
+   AutoDelete->True,
+   Editable->False,
+   Selectable->False],
+  PlotTheme -> "Detailed",
+  Axes->False,
+  BaseStyle->{
+    Hue[0.6, 0.3, 0.95]},
+  Frame->True,
+  FrameLabel->{
+    FormBox["\"success probability\"", TraditionalForm], 
+    FormBox["\"trace distance error\"", TraditionalForm]},
+  PlotRange->{{0, 1}, {0, 1}}]], "Output",
+ CellChangeTimes->{
+  3.933848485899629*^9, {3.933848601779257*^9, 3.933848629400196*^9}, {
+   3.9338487171324873`*^9, 3.933848737207501*^9}, 3.933848789279867*^9, {
+   3.93384887872964*^9, 3.933848894580195*^9}, {3.933849067437771*^9, 
+   3.9338490801150417`*^9}, 3.9375519854656897`*^9},
+ CellLabel->"Out[5]=",ExpressionUUID->"ab632153-e1da-41d4-b1fb-73819b231070"]
+}, Open  ]]
+},
+WindowSize->{1223, 1027},
+WindowMargins->{{246, Automatic}, {Automatic, 0}},
+FrontEndVersion->"14.1 for Mac OS X ARM (64-bit) (July 16, 2024)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"800c449c-74f7-47fc-a236-b2373a1f468f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 1432, 35, 70, "Input",ExpressionUUID->"dabdbbcf-7eda-470c-90ed-012871c3b668"],
+Cell[1993, 57, 3868, 89, 151, "Input",ExpressionUUID->"faacf065-e2bc-4a70-b266-97b95acca467"],
+Cell[CellGroupData[{
+Cell[5886, 150, 1424, 33, 70, "Input",ExpressionUUID->"16d9621c-e1f9-46a8-803a-2ffb5a27dceb"],
+Cell[7313, 185, 2120, 51, 372, "Output",ExpressionUUID->"ab632153-e1da-41d4-b1fb-73819b231070"]
+}, Open  ]]
+}
+]
+*)
+
